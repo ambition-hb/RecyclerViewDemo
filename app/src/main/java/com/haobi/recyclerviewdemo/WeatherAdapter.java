@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -19,6 +20,10 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
 
     //静态内部类：可以不依赖于外部类实例化而被实例化
     static class ViewHolder extends RecyclerView.ViewHolder{
+
+        //添加weatherView变量来保存子项最外层布局（图片+文字区域）的实例
+        View weatherView;
+
         ImageView weatherImage;
         TextView weatherName;
         //静态内部类的构造函数
@@ -26,6 +31,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
             //传入的view就是RecyclerView子项的最外层布局
             super(view);
             //根据布局获取布局实例
+            weatherView = view;//图片加文字区域
             weatherImage = (ImageView) view.findViewById(R.id.weather_image);
             weatherName = (TextView) view.findViewById(R.id.weather_name);
         }
@@ -43,7 +49,27 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
         //加载weather_item布局
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.weather_item, parent, false);
         //创建ViewHolder实例，并将布局传入ViewHolder构造函数
-        ViewHolder holder = new ViewHolder(view);
+        final ViewHolder holder = new ViewHolder(view);
+        holder.weatherView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //获取position
+                int position = holder.getAdapterPosition();
+                //通过position获取实例
+                Weather weather = mWeatherList.get(position);
+                Toast.makeText(v.getContext(), "View:"+weather.getName(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        holder.weatherImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //获取position
+                int position = holder.getAdapterPosition();
+                //通过position获取实例
+                Weather weather = mWeatherList.get(position);
+                Toast.makeText(v.getContext(), "Image:"+weather.getName(), Toast.LENGTH_SHORT).show();
+            }
+        });
         //将ViewHolder实例返回
         return holder;
     }
