@@ -21,6 +21,9 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
         //创建LinearLayoutManager对象
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        //调用LinearLayoutManager的setOrientation()方法来设置布局的排列方向
+        //默认是纵向排列
+        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         //将LinearLayoutManager对象设置到RecyclerView当中
         recyclerView.setLayoutManager(layoutManager);
         //创建WeatherAdapter实例并将天气数据传入WeatherAdapter的构造函数中
