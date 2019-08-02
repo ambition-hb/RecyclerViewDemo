@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,11 +20,8 @@ public class MainActivity extends AppCompatActivity {
         initWeather();//初始化天气数据
         //获取RecyclerView实例
         RecyclerView recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
-        //创建LinearLayoutManager对象
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        //调用LinearLayoutManager的setOrientation()方法来设置布局的排列方向
-        //默认是纵向排列
-        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        //创建StaggeredGridLayoutManager实例
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
         //将LinearLayoutManager对象设置到RecyclerView当中
         recyclerView.setLayoutManager(layoutManager);
         //创建WeatherAdapter实例并将天气数据传入WeatherAdapter的构造函数中
